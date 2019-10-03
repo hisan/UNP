@@ -1,2 +1,8 @@
 it's my second time to read UNP,I record it in git.
 2019-10-03 08:55
+
+
+1.学习环境配置
+目录unpv13e是解压后的随书代码，本人为linux操作系统（centos7）.
+具体编译配置请阅读目录unpv13e下的README文档，出现编译问题时可参考下面链接的博客(非本人)。
+https://www.jianshu.com/p/a0037f327b96

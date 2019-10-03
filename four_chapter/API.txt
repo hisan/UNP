@@ -1,0 +1,25 @@
+#include <sys/socket.h>
+int socket(int family,int type,int protocol);
+	1.family: 	AF_INET,AF_INET6,AF_LOCAL,AF_KEY,AF_ROUTE
+	2.type:		SOCK_STREAM,SOCK_DGGRAM,SOCK_SEQPACKET,SOCK_RAW
+	3.protocol 	IPPROTO_TCP,IPPROTO_UDP,IPPRO_SCTP
+
+int connect(int sockfd,const struct sockaddr * servaddr,socklen_t addrlen);
+	客户调用函数connect前不必非得调研bind函数，如果需要的话，内核就会确定源ip地址，并选择一个临时端口作为源端口
+
+int bind(int sockfd,const struct sockaddr * myaddr,socklen_t addrlen)
+	把一个本地协议地址赋予一个套接字。
+	
+int listen(int listenfd,int backlog);//backlog = 1 + 2
+	内核为每个给定的监听套接字维护两个队列：
+		1. 未完成连接队列：这样的每个SYN分节对应其中一项，已由某个客户发出并达到服务器，而服务器正在等待三次握手完成。此时这些套接字正处于SYN_RCVD状态。
+		2. 已完成连接队列：每个已完成三次握手的客户对应其中一项。此时这些套接字正处于ESTABLISHED状态
+
+int accept(int sockfd,struct sockaddr *cliaddr,socklen_t *addrlen);
+
+//这两个套接字返回与某个套接字关联的本地协议地址,或者返回与某个套接字关联的外地协议地址
+int getsockname(int sockfd,struct sockaddr *localaddr,socklen_t *len);//
+
+int getpeername(int sockfd,struct sockaddr *peeraddr,socklen_t *len);//
+//对于getpeername，当服务器fork之后，调用exec启另一个进程，此时子进程的内存映象不再同于父进程，
+//对它来说，那个包含对端地址的地址结构已经丢失，但是那个已连接描述符跨exec继续保持开发，它调用getpeername,用于获取客户的IP地址和端口号
