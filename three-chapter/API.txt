@@ -1,0 +1,141 @@
+1. 地址结构体
+struct in_addr
+{
+	in_addr_t s_addr;//typedef unsigned int in_addr_t 
+};
+
+struct sockaddr_in
+{
+	//有了长度字段，才简化了长度可变地址套接字地址结构的处理
+	//除非设计路由套接字，否则我们一般不设置和检查它
+	uint_8_t 		sin_len;	
+	
+	//POSIX规范只需要1，2，3
+	sa_family_t 	sin_family;	//1. 可以是任意的无符号整数类型
+	//在支持长度字段的实现中：它通常是一个8位的无符号整数
+	//不支持的实现中：则是一个16位的无符号整数
+	
+	in_port_t 		sin_port;	//2. 必须是一个至少16bit的无符号整数类型
+	struct in_add_t sin_addr;	//3. 必须是一个至少32bit的无符号整数类型
+	
+	char 			sin_zero[8]; //虽然没用，但是一般置0，这在初始化时顺便做的工作
+};
+
+//通用套接字地址结构
+	1. 引入通用地址结构的原因是因为,在使用指向地址结构指针的套接字函数，
+		由于要处理来自所支持的任何协议族的套接字地址结构，所以就定义了一个统一地址结构。
+	
+struct sockaddr_t 
+{
+	uint8_t 	sa_len;
+	sa_family_t sa_family;
+	char 		sa_data[14];//4+8+2
+};
+
+struct in6_addr
+{
+	uint_t s6_addr[16];
+};
+
+#define SIN6_LEN 			//若系统支持地址长度字段，则此宏必定义
+struct sockaddr_in6
+{
+	uint8_t 			sin6_len;
+	sa_family_t 		sin6_family;
+	in_port_t 			sin6_port;
+	
+	uint32_t 			sin6_flowinfo;	//20: flow flag 12 :保留
+	
+	struct in6_addr		sin6_addr;
+	
+	uint32_t 			sin6_scope_id;
+};
+
+
+//新的通用套接字地址结构		足以容纳系统所支持的任何套接字地址结构
+struct sockaddr_storage
+{
+	uint8_t 		ss_len;
+	sa_family_t 	ss_family;
+	
+};
+
+
+
+
+2. 一些数据类型说明
+	socklen_t == uint32_t 
+	in_add_t  == uint32_t 
+	in_port_t == uint16_t 
+	
+	
+3.	字节序
+
+首先是因为有大小端的存在，不同的操作系统的存储器使用不同的方式。并且两中存储方式使用广泛。
+某台主机使用的存储方式就成为主机字节序(无论大小端),但是网络通信是跨pc跨网络跨操作系统的，
+不同的操作系统之间的主机字节序的不同会造成传输的数据后接收下来的异同，因此要统一规定，
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
