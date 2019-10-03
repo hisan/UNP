@@ -71,66 +71,26 @@ struct sockaddr_storage
 	
 3.	字节序
 
-首先是因为有大小端的存在，不同的操作系统的存储器使用不同的方式。并且两中存储方式使用广泛。
-某台主机使用的存储方式就成为主机字节序(无论大小端),但是网络通信是跨pc跨网络跨操作系统的，
-不同的操作系统之间的主机字节序的不同会造成传输的数据后接收下来的异同，因此要统一规定，
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	首先是因为有大小端的存在，不同的操作系统的存储器使用不同的方式。并且两存储方式使用广泛。
+	某台主机使用的存储方式就是主机字节序(无论大小端),但是网络通信是跨pc跨网络跨操作系统的，
+	既然网络协议必须指定一个网络字节序,因此，发送协议栈和接收协议栈必须就这些多字节字段各个字节的传送顺序达成一致。
 
+	!!!网际协议使用大端字节序来传送这些多字节整数。
 	
+	大端转换
+	HTOS(u16num)	( ((u16num & 0xff00) >> 8) | ((u16num & 0x00ff) << 8 ) )
 	
+3. ip地址转换(简单转换、直接转网络字节序)
 	
+	//ipv4
+	int 		inet_aton(const char *strptr,struct in_addr *addrptr);
 	
+	char 		*inet_ntoa(struct in_addr inaddr);	//参数为结构，而不是指向其的指针
 	
+	//ipv4、6
+	int inet_pton(int family,const char *strptr,void *addrptr);
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	const char *inet_ntop(int family,const void *addrptr,char *strptr,size_t len);
 	
 	
 	

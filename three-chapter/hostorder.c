@@ -1,14 +1,15 @@
+﻿#include <stdio.h>
 #include "unp.h"
 int main(int agrc,char **argv)
 {
 	union
 	{
 		short s;
-		char  c[sizeof[short]];
+		char  c[sizeof(short)];
 	}un;
 	
 	un.s = 0x0102;
-	printf("host byte order %s ",CPU_VENDOR_OS);
+	printf("%s \n",CPU_VENDOR_OS);
 	if (sizeof(short) == 2)
 	{
 		if (un.c[0] == 1 && un.c[1] == 2)
