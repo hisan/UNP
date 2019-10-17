@@ -18,7 +18,7 @@ void str_cli(FILE *fp,int sockfd)
 		
 		FD_SET(sockfd,&rset);
 		maxfdp1 = max(fileno(fp),sockfd) + 1;
-		select(maxfdp1,&rset,NULL,NULL,NULL);
+		select(maxfdp1,&rset,NULL,NULL,NULL);//maxfdp1为什么是最大描述符+1？或许是为了内核处理时找到循环遍历描述符的跳出条件吧！
 		
 		if (FD_ISSET(sockfd,&rset)) 
 		{

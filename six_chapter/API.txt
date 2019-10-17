@@ -16,3 +16,11 @@ int shutdown(int sockfd,int howto);
 			SHUT_RD:	关闭读端，若此套接字缓存区还有数据则丢弃，之后的任何对该套接字的读调用都将失效。
 			SHUT_WR:	关系写端，当前留在该套接字缓冲区中的数据都将被发送，后跟TCP的正常终止序列。
 			SHUT_RDWR:  都关闭。
+
+int poll(struct pollfd *fdarray,unsigned long nfds,int timeout);
+	struct pollfd
+	{
+		int fd;
+		short events;			//对描述符上发生的感兴趣的事件。
+		short revents;			//发生在描述符集上的事件。
+	};
